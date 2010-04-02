@@ -35,8 +35,11 @@ ibus_xkb_engine_new (const gchar *layout,
                                    "",
                                    engine_layout ? engine_layout : layout);
 
+    /* Chromium OS local change:
+       Don't use is_layout until we merge suzhe's patch for ibus-daemon. */
+
     /* It's a keyboard layout */
-    engine->is_layout = TRUE;
+    /* engine->is_layout = TRUE; */
 
     /* set default rank to 0 */
     engine->rank = 0;
