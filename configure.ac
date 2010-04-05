@@ -24,7 +24,7 @@ AC_ARG_WITH([xkb-rules-xml],
             [XKB_RULES_XML_FILE=$withval],
             [XKB_RULES_XML_FILE="/usr/share/X11/xkb/rules/evdev.xml"])
 
-AC_CHECK_FILE([$XKB_RULES_XML_FILE],[],[AC_MSG_ERROR([$XKB_RULES_XML_FILE is not available.])])
+#AC_CHECK_FILE([$XKB_RULES_XML_FILE],[],[AC_MSG_ERROR([$XKB_RULES_XML_FILE is not available.])])
 
 PREDEFINED_MACROS="-DXKB_RULES_XML_FILE=\\\"$XKB_RULES_XML_FILE\\\""
 AC_SUBST([PREDEFINED_MACROS])
