@@ -17,6 +17,7 @@ ibus_xkb_engine_new (gchar    *layout,
     gchar *engine_name = NULL;
     gchar *engine_longname = NULL;
     gchar *engine_layout = NULL;
+    const gchar *engine_hotkeys = "";
 
     engine_name = g_strdup_printf ("xkb:%s:%s:%s", layout, variant, language);
     if (variant_desc && *variant_desc) {
@@ -27,20 +28,22 @@ ibus_xkb_engine_new (gchar    *layout,
         engine_layout = g_strdup_printf ("%s(%s)", layout, variant);
     }
 
-    engine = ibus_engine_desc_new (engine_name,
+    /* Adds special hotkey on Japanese keyboard to activate English input
+     * TODO(suzhe): make sure the corresponding key on ChromeOS device generates
+     * the same key symbol.*/
+    if (g_strcmp0(language, "eng") == 0) {
+        engine_hotkeys = "Eisu_toggle";
+    }
+
+    engine = ibus_engine_desc_new2(engine_name,
                                    engine_longname ? engine_longname : layout_desc,
                                    "",
                                    language,
                                    "",
                                    "",
                                    "",
-                                   engine_layout ? engine_layout : layout);
-
-    /* Chromium OS local change:
-       Don't use is_layout until we merge suzhe's patch for ibus-daemon. */
-
-    /* It's a keyboard layout */
-    /* engine->is_layout = TRUE; */
+                                   engine_layout ? engine_layout : layout,
+                                   engine_hotkeys);
 
     /* set default rank to 0 */
     engine->rank = 0;
