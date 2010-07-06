@@ -31,7 +31,7 @@ ibus_xkb_engine_new (gchar    *layout,
     /* Adds special hotkey on Japanese keyboard to activate English input
      * TODO(suzhe): make sure the corresponding key on ChromeOS device generates
      * the same key symbol.*/
-    if (g_strcmp0(language, "eng") == 0) {
+    if (g_strcmp0(language, "jpn") == 0) {
         engine_hotkeys = "Eisu_toggle";
     }
 
