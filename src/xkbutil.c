@@ -28,11 +28,9 @@ ibus_xkb_engine_new (gchar    *layout,
         engine_layout = g_strdup_printf ("%s(%s)", layout, variant);
     }
 
-    /* Adds special hotkey on Japanese keyboard to activate English input
-     * TODO(suzhe): make sure the corresponding key on ChromeOS device generates
-     * the same key symbol.*/
+    /* Adds special hotkey on Japanese keyboard to activate English input. */
     if (g_strcmp0(language, "jpn") == 0) {
-        engine_hotkeys = "Eisu_toggle";
+        engine_hotkeys = "Muhenkan";
     }
 
     engine = ibus_engine_desc_new2(engine_name,
