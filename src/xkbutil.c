@@ -33,6 +33,21 @@ ibus_xkb_engine_new (gchar    *layout,
         engine_hotkeys = "Muhenkan";
     }
 
+    /* set default rank to 0 */
+    gint rank = 0;
+    if (g_strcmp0(layout, "us") == 0 && (!variant || !*variant)) {
+        rank = 100;
+    }
+
+#if IBUS_CHECK_VERSION(1, 3, 99)
+    engine = ibus_engine_desc_new_varargs("name", engine_name,
+                                          "longname", (engine_longname ? engine_longname : layout_desc),
+                                          "language", language,
+                                          "layout", (engine_layout ? engine_layout : layout),
+                                          "hotkeys", engine_hotkeys,
+                                          "rank", rank,
+                                          NULL);
+#else
     engine = ibus_engine_desc_new2(engine_name,
                                    engine_longname ? engine_longname : layout_desc,
                                    "",
@@ -42,13 +57,8 @@ ibus_xkb_engine_new (gchar    *layout,
                                    "",
                                    engine_layout ? engine_layout : layout,
                                    engine_hotkeys);
-
-    /* set default rank to 0 */
-    engine->rank = 0;
-
-    if (g_strcmp0(layout, "us") == 0 && (!variant || !*variant)) {
-        engine->rank = 100;
-    }
+    engine->rank = rank;
+#endif
 
     g_free (engine_name);
     g_free (engine_longname);

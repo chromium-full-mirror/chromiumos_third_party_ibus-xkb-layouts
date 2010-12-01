@@ -48,7 +48,11 @@ start_component (void)
     engines = ibus_component_get_engines (component);
     for (p = engines; p != NULL; p = p->next) {
         IBusEngineDesc *engine = (IBusEngineDesc *)p->data;
+#if IBUS_CHECK_VERSION(1, 3, 99)
+        ibus_factory_add_engine (factory, ibus_engine_desc_get_name(engine), IBUS_TYPE_XKB_LAYOUT_ENGINE);
+#else
         ibus_factory_add_engine (factory, engine->name, IBUS_TYPE_XKB_LAYOUT_ENGINE);
+#endif
     }
 
     if (ibus) {
