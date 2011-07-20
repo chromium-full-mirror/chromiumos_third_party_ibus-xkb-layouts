@@ -33,7 +33,7 @@ ibus_xkb_engine_new (gchar    *layout,
         engine_hotkeys = "Muhenkan";
     } else if (g_strcmp0(language, "kor") == 0) {
         /* Do the same for Korean. crosbug.com/15944 */
-        engine_hotkeys = "Shift+space";
+        engine_hotkeys = "Shift+space,Hangul";
     }
 
     /* set default rank to 0 */
