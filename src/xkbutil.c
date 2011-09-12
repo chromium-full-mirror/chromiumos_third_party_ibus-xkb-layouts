@@ -28,14 +28,6 @@ ibus_xkb_engine_new (gchar    *layout,
         engine_layout = g_strdup_printf ("%s(%s)", layout, variant);
     }
 
-    if (g_strcmp0(language, "jpn") == 0) {
-        /* Adds special hotkey on Japanese keyboard to activate English input */
-        engine_hotkeys = "Muhenkan";
-    } else if (g_strcmp0(language, "kor") == 0) {
-        /* Do the same for Korean. crosbug.com/15944 */
-        engine_hotkeys = "Shift+space,Hangul";
-    }
-
     /* set default rank to 0 */
     gint rank = 0;
     if (g_strcmp0(layout, "us") == 0 && (!variant || !*variant)) {
